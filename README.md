@@ -1,80 +1,92 @@
-# Terraform Astro Blog Deployment (S3 + CloudFront)
+# Astro Blog Deployment with Terraform (AWS S3 + CloudFront)
 
-This project demonstrates a full Infrastructure as Code (IaC) deployment of a static Astro blog using Terraform on AWS. It provisions an S3 bucket for static hosting and a CloudFront distribution for global CDN delivery.
+## Overview
 
-The goal is to create a fully repeatable, production-style deployment using Terraform.
+This project is a real-world Infrastructure as Code (IaC) deployment of a static Astro blog using Terraform on AWS. It provisions and manages an S3 bucket for hosting static files and a CloudFront distribution for global content delivery.
 
-## Stack
-Terraform, AWS S3, CloudFront, Astro, Linux, Git
+The site is currently live and accessible via AWS CloudFront.
 
-## What it does
-- Builds Astro static site into /dist
-- Uploads files to AWS S3
-- Serves content via CloudFront CDN
-- Manages infrastructure using Terraform
+---
 
-## Deployment
+## Live Website
 
-Initialize Terraform
+CloudFront URL:
+```
+https://ddbqgnp3himrp.cloudfront.net
+```
+
+S3 Bucket:
+```
+my-terraform-site-2026-oluwapelumi
+```
+
+---
+
+## What I Built
+
+I deployed a static Astro blog using Terraform by:
+
+- Creating an AWS S3 bucket for static hosting
+- Uploading the Astro build output to S3
+- Configuring S3 bucket policies for public access
+- Setting up a CloudFront distribution for CDN delivery
+- Managing all infrastructure using Terraform
+- Automating deployment using IaC principles
+
+---
+
+## Architecture
+
+Astro Build → S3 Bucket → CloudFront CDN → Internet Users
+
+---
+
+## Tech Stack
+
+- Terraform
+- AWS S3
+- AWS CloudFront
+- Astro
+- Linux (Ubuntu)
+- Git & GitHub
+
+---
+
+## Terraform Workflow Used
+
 ```bash
 terraform init
-```
-
-Plan infrastructure
-```bash
 terraform plan
-```
-
-Apply infrastructure
-```bash
 terraform apply
-```
-
-Confirm with:
-```bash
-yes
-```
-
-## Build and upload site
-
-Build Astro project
-```bash
-npm run build
-```
-
-Upload to S3
-```bash
-aws s3 sync dist/ s3://YOUR_BUCKET_NAME
-```
-
-## Test full lifecycle
-
-Destroy infrastructure
-```bash
 terraform destroy
-```
-
-Recreate infrastructure
-```bash
 terraform apply
 ```
 
-This confirms infrastructure is fully reproducible.
+This confirmed that the infrastructure is fully reproducible.
 
-## Outputs
-- CloudFront URL (main website endpoint)
-- S3 bucket name
+---
 
-Example:
-cloudfront_url = dxxxxx.cloudfront.net
+## Key Outputs from Terraform
 
-## Key learning
-- Infrastructure is code, not manual setup
-- Terraform ensures reproducibility
-- CloudFront improves global performance
-- State file tracks real-world infrastructure
+```hcl
+cloudfront_url = "ddbqgnp3himrp.cloudfront.net"
+s3_bucket_name = "my-terraform-site-2026-oluwapelumi"
+```
+
+---
+
+## Key Learnings
+
+- Infrastructure as Code ensures repeatable deployments
+- CloudFront improves performance and global access
+- S3 can serve static websites at scale
+- Terraform state tracks real AWS infrastructure
+- Plan → Apply → Destroy cycle validates reliability
+
+---
 
 ## Notes
-- Do not commit terraform.tfstate
-- Do not commit .terraform folder
-- Always run terraform plan before apply
+
+- Terraform state files are excluded from GitHub
+- CloudFront deployment may take a few minutes to propagate
+- All infrastructure is fully managed via Terraform
